@@ -12,23 +12,44 @@ This dataset represents a valuable resource for the NSCLC research community and
 
 ## Repository Structure
 
+This repository contains all three analysis components from the original Nature paper:
+
 ```
 LANTERN/
-├── notebooks/              # Jupyter notebooks for analysis
-│   ├── prediction_416.ipynb
-│   ├── prediction_416_freq.ipynb
-│   ├── prediction_stage1.ipynb
-│   ├── prediction_stage1_freq.ipynb
-│   └── resnet_architecture.ipynb
+├── cell_segmentation/      # Cell Segmentation Module (MATLAB + Python)
+│   ├── Lib/                # Segmentation libraries (MaskRCNN, etc.)
+│   ├── ConfigFiles/        # Configuration files
+│   └── README.md           # Segmentation module documentation
+├── cell_phenotyping/       # Cell Phenotyping Module (MATLAB)
+│   ├── Lib/                # Phenotyping libraries
+│   ├── ConfigFiles/        # Configuration files and rule tables
+│   └── README.md           # Phenotyping module documentation
+├── micro_environment_prediction/  # Micro Environment Prediction (Python/Jupyter)
+│   ├── prediction_416.ipynb      # Main prediction analysis for all 416 samples
+│   ├── prediction_416_freq.ipynb # Frequency-based analysis
+│   ├── prediction_stage1.ipynb  # Stage 1 specific analysis
+│   ├── prediction_stage1_freq.ipynb  # Stage 1 frequency analysis
+│   └── resnet_architecture.ipynb    # ResNet deep learning architecture
 ├── data/                   # Data directory (see Data Setup)
-│   ├── LANTERN_MaskTif/
-│   ├── LANTERN_Segmentation/
-│   ├── LANTERN_CellType/
-│   └── LANTERN_Clinical_Data.xlsx
+│   ├── LANTERN_MaskTif/    # Masked multiplex images (536 .tif files)
+│   ├── LANTERN_Segmentation/  # Nuclei segmentation data (1072 .mat files)
+│   ├── LANTERN_CellType/   # Cell type information (536 .mat files)
+│   └── LANTERN_Clinical_Data.xlsx  # Clinical data for all samples
 ├── docs/                   # Documentation and figures
-│   └── sample_fig.png
+│   ├── sample_fig.png
+│   ├── INSTALLATION.md
+│   └── CONTRIBUTING.md
+├── REPRODUCIBILITY.md     # Guide for reproducing Nature paper visualizations
 └── README.md
 ```
+
+### Analysis Components
+
+1. **Cell Segmentation** (`cell_segmentation/`): Nuclei segmentation from imaging mass cytometry data using MaskRCNN and MATLAB-based processing.
+
+2. **Cell Phenotyping** (`cell_phenotyping/`): Cell type assignment based on marker expression patterns using rule-based classification in MATLAB.
+
+3. **Micro Environment Prediction** (`micro_environment_prediction/`): Machine learning models for predicting patient progression using spatial features. **This module replicates the main results and figures from the Nature paper** (coming soon).
 
 ## Getting Started
 
@@ -54,8 +75,9 @@ LANTERN/
    **Note for Windows users:** TensorFlow requires Windows Long Path support. See `docs/INSTALLATION.md` for details.
 
 3. **Set up data:**
-   - Download data from Zenodo (DOI: [10.5281/zenodo.7760826](https://doi.org/10.5281/zenodo.7760826))
-   - Organize data in the `data/` directory as described in the Data Structure section
+   - See detailed instructions in the [Data Setup](#data-setup) section below
+   - Data must be downloaded from Google Drive: [Download here](https://drive.google.com/drive/folders/1gOgEWZ1isWgRr35SQGPovYfI5aBsdLfa?usp=sharing)
+   - Requires ~10GB of disk space
 
 ### Running the Analysis
 
@@ -64,16 +86,28 @@ LANTERN/
    jupyter notebook
    ```
 
-2. **Open and run notebooks in order:**
-   - `notebooks/prediction_416.ipynb` - Main prediction analysis for all 416 samples
-   - `notebooks/prediction_416_freq.ipynb` - Frequency-based analysis
-   - `notebooks/prediction_stage1.ipynb` - Stage 1 specific analysis
-   - `notebooks/prediction_stage1_freq.ipynb` - Stage 1 frequency analysis
-   - `notebooks/resnet_architecture.ipynb` - ResNet deep learning architecture
+2. **Run the analysis pipeline:**
+
+   **For Micro Environment Prediction (replicates Nature paper results):**
+   - Navigate to `micro_environment_prediction/`
+   - Open and run notebooks in order:
+     - `prediction_416.ipynb` - Main prediction analysis for all 416 samples (replicates main Nature paper results)
+     - `prediction_416_freq.ipynb` - Frequency-based analysis
+     - `prediction_stage1.ipynb` - Stage 1 specific analysis
+     - `prediction_stage1_freq.ipynb` - Stage 1 frequency analysis
+     - `resnet_architecture.ipynb` - ResNet deep learning architecture
+
+   **For Cell Segmentation:**
+   - See `cell_segmentation/README.md` for MATLAB-based segmentation pipeline
+   - Requires MATLAB with Computer Vision and Image Processing Toolboxes
+   - Requires Python 3.7.9+ for MaskRCNN components
+
+   **For Cell Phenotyping:**
+   - See `cell_phenotyping/README.md` for MATLAB-based phenotyping pipeline
+   - Requires MATLAB with Computer Vision and Image Processing Toolboxes
+   - Requires output from cell segmentation module
 
 ## Data
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7760826.svg)](https://doi.org/10.5281/zenodo.7760826)
 
 ### Data Structure
 
@@ -83,24 +117,120 @@ The data should be organized in the `data/` directory:
 - `data/LANTERN_Segmentation/`: Nuclei segmentation data (1072 .mat files)
 - `data/LANTERN_CellType/`: Cell type information (536 .mat files)
 - `data/LANTERN_Clinical_Data.xlsx`: Clinical data for all samples
-- `data/processed/`: Processed data files (generated during analysis)
+- `data/processed/`: Processed data files (generated automatically during analysis - see below)
 
-### Downloading Data
+### Data Setup
 
-The data is available on Zenodo and should be downloaded and placed in the `data/` directory:
+**Important:** The data files are large (~10GB total) and are not included in this repository. You must download them separately from Google Drive.
 
-1. **LANTERN_MaskTif**: Contains masked multiplex images of the IMC cores
-2. **LANTERN_Segmentation**: Contains the nuclei segmentation information
-3. **LANTERN_CellType**: Contains the cell type information for each of the IMC cores
-4. **LANTERN_Clinical_Data.xlsx**: Contains clinical data with regard to the images listed above
+#### Download Data
+
+**Download the data files here:** [Google Drive](https://drive.google.com/drive/folders/1gOgEWZ1isWgRr35SQGPovYfI5aBsdLfa?usp=sharing)
+
+#### Step 1: Access Google Drive
+
+1. Click the link above to access the Google Drive folder
+2. You will see the following folders and files available for download
+
+#### Step 2: Download Required Files
+
+Download the following files/folders from Google Drive:
+
+1. **LANTERN_MaskTif/** (folder)
+   - Contains 536 `.tif` files (masked multiplex images)
+   - File size: ~3-4 GB
+
+2. **LANTERN_Segmentation/** (folder)
+   - Contains 1072 `.mat` files (nuclei segmentation data)
+   - File size: ~2-3 GB
+
+3. **LANTERN_CellType/** (folder)
+   - Contains 536 `.mat` files (cell type annotations)
+   - File size: ~1-2 GB
+
+4. **LUAD Clinical Data.xlsx** (single file) → **Rename to:** `LANTERN_Clinical_Data.xlsx`
+   - Clinical data for all 416 samples
+   - File size: <1 MB
+   - **Note:** In Google Drive, this file is named "LUAD Clinical Data.xlsx". You must rename it to "LANTERN_Clinical_Data.xlsx" after downloading.
+
+#### Step 3: Organize Data in Project Directory
+
+After downloading, organize the files as follows:
+
+```
+LANTERN/
+└── data/
+    ├── LANTERN_MaskTif/          # Extract downloaded folder here
+    ├── LANTERN_Segmentation/     # Extract downloaded folder here
+    ├── LANTERN_CellType/         # Extract downloaded folder here
+    ├── LANTERN_Clinical_Data.xlsx # Place the Excel file here
+    └── processed/                 # Will be created automatically during analysis
+```
+
+**Instructions:**
+- If you downloaded ZIP files, extract them to the `data/` directory
+- Ensure folder names match exactly: `LANTERN_MaskTif`, `LANTERN_Segmentation`, `LANTERN_CellType`
+- **Important:** The Excel file in Google Drive is named "LUAD Clinical Data.xlsx". After downloading, rename it to `LANTERN_Clinical_Data.xlsx` and place it directly in the `data/` folder (not in a subfolder)
+
+#### Step 4: Verify Data Structure
+
+After organizing, verify your data structure:
+
+```bash
+# Check that all directories exist and contain files
+ls data/LANTERN_MaskTif/          # Should show 536 .tif files
+ls data/LANTERN_Segmentation/     # Should show 1072 .mat files
+ls data/LANTERN_CellType/         # Should show 536 .mat files
+ls data/LANTERN_Clinical_Data.xlsx # Should exist
+```
+
+**Expected file counts:**
+- `LANTERN_MaskTif/`: 536 files
+- `LANTERN_Segmentation/`: 1072 files
+- `LANTERN_CellType/`: 536 files
+
+#### About the Processed Data Folder
+
+The `data/processed/` folder contains pre-processed data files that are **automatically generated** when you run the analysis notebooks. 
+
+**Important:** The processed data file (`allResponsesOriented_orig.pickle`) is **not** included in the Google Drive download. It will be created automatically during the first notebook run.
+
+**What happens:**
+1. When you first run `prediction_416.ipynb` or `prediction_stage1.ipynb`, the notebook will:
+   - Load the raw data from `LANTERN_MaskTif/`, `LANTERN_Segmentation/`, and `LANTERN_CellType/`
+   - Process and combine the cell data into a unified format
+   - Generate `allResponsesOriented_orig.pickle` in `data/processed/`
+   - Save it for future use (subsequent runs will load it directly)
+
+2. **First run:** May take 10-30 minutes to generate the processed file (depending on your hardware)
+
+3. **Subsequent runs:** Will load the existing pickle file quickly (seconds)
+
+**Note:** If you delete the `data/processed/` folder or the pickle file, it will be regenerated on the next notebook run. The processed file is created from the raw segmentation and cell type data, so as long as you have those folders, the processed data can always be regenerated.
+
+#### Troubleshooting Data Setup
+
+- **Missing files:** Re-download from Google Drive and verify the download completed successfully
+- **Wrong folder names:** Ensure exact capitalization matches (case-sensitive)
+- **File count mismatch:** Some files may be in subdirectories; check nested folders
+- **Permission errors:** Ensure you have read/write permissions in the `data/` directory
+
+For more detailed information, see `data/README.md`.
 
 ## Analysis Workflow
 
-1. **Data Preprocessing**: Load and prepare clinical and imaging data
-2. **Feature Extraction**: Extract features from processed cell data
-3. **Model Training**: Train machine learning models for progression prediction
-4. **Visualization**: Generate UMAP plots and performance metrics
-5. **Deep Learning**: Optional ResNet-based analysis on raw images
+The complete analysis pipeline consists of three sequential steps:
+
+1. **Cell Segmentation** (`cell_segmentation/`): Segment nuclei from IMC images using MaskRCNN and MATLAB-based processing
+2. **Cell Phenotyping** (`cell_phenotyping/`): Assign cell types to segmented nuclei based on marker expression patterns
+3. **Micro Environment Prediction** (`micro_environment_prediction/`): 
+   - Load processed cell data and clinical information
+   - Extract spatial features from cell neighborhoods
+   - Train machine learning models (SVM, Gaussian Process Classifier) for progression prediction
+   - Generate UMAP visualizations and performance metrics
+   - Optional: ResNet-based deep learning analysis on raw images
+
+**Note:** To replicate the Nature paper results, you can start directly with the `micro_environment_prediction/` module using the data from Google Drive. The notebooks will automatically generate the processed data file (`allResponsesOriented_orig.pickle`) on the first run. The segmentation and phenotyping steps are only needed if you want to process new IMC images.
 
 ## Citation
 
@@ -123,7 +253,18 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - GitHub: [@rohantennety](https://github.com/rohantennety)
 - Repository: https://github.com/rohantennety/LANTERN
 
+## Related Publication
+
+This repository contains code to replicate the analysis from:
+
+**Sorin, M., Rezanejad, M., Karimi, E. et al.** Single-cell spatial landscapes of the lung tumour immune microenvironment. *Nature* **614**, 548–554 (2023). (coming soon)
+
+The `micro_environment_prediction/` module specifically replicates the main results and figures from this Nature paper, including:
+- Progression prediction using spatial features from 416 lung adenocarcinoma samples
+- UMAP visualizations of the tumor-immune microenvironment
+- Deep learning models for predicting patient outcomes
+
 ## Acknowledgments
 
-This work is based on the original IMC-Lung project. Data is available through Zenodo (DOI: 10.5281/zenodo.7760826).
+This work is based on the original IMC-Lung project by walsh-quail-labs. Data is available through [Google Drive](https://drive.google.com/drive/folders/1gOgEWZ1isWgRr35SQGPovYfI5aBsdLfa?usp=sharing).
 

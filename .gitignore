@@ -19,10 +19,14 @@ lantern_env/
 *.ipynb_checkpoints/
 
 # Data files (large)
-data/LANTERN_MaskTif/
-data/LANTERN_Segmentation/
-data/LANTERN_CellType/
-data/processed/
+data/LANTERN_MaskTif/*
+!data/LANTERN_MaskTif/.gitkeep
+data/LANTERN_Segmentation/*
+!data/LANTERN_Segmentation/.gitkeep
+data/LANTERN_CellType/*
+!data/LANTERN_CellType/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
 data/models/
 data/results/
 

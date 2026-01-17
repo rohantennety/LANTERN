@@ -65,12 +65,13 @@ print(f"PyTorch: {torch.__version__}")
 
 ### 6. Download Data
 
-1. Visit the [Zenodo repository](https://doi.org/10.5281/zenodo.7760826)
-2. Download the following folders/files:
+1. Visit the [Google Drive folder](https://drive.google.com/drive/folders/1gOgEWZ1isWgRr35SQGPovYfI5aBsdLfa?usp=sharing)
+2. Open the "LungData" folder inside
+3. Download the following folders/files:
    - `LANTERN_MaskTif/` → Place in `data/LANTERN_MaskTif/`
    - `LANTERN_Segmentation/` → Place in `data/LANTERN_Segmentation/`
    - `LANTERN_CellType/` → Place in `data/LANTERN_CellType/`
-   - `LANTERN_Clinical_Data.xlsx` → Place in `data/`
+   - `LUAD Clinical Data.xlsx` → **Rename to** `LANTERN_Clinical_Data.xlsx` → Place in `data/`
 
 ### 7. Start Jupyter Notebook
 
@@ -102,7 +103,7 @@ conda activate lantern
 
 **Problem**: `FileNotFoundError` when running notebooks.
 
-**Solution**: Ensure all data files are downloaded from Zenodo and placed in the correct `data/` subdirectories.
+**Solution**: Ensure all data files are downloaded from Google Drive and placed in the correct `data/` subdirectories. See the main README.md for detailed download instructions.
 
 ## Alternative Installation Methods
 
