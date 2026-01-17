@@ -45,11 +45,23 @@ LANTERN/
 
 ### Analysis Components
 
+The repository is organized into three main analysis modules, each corresponding to a stage in the pipeline. These modules are based on the original [walsh-quail-labs/IMC-Lung](https://github.com/walsh-quail-labs/IMC-Lung) repository:
+
 1. **Cell Segmentation** (`cell_segmentation/`): Nuclei segmentation from imaging mass cytometry data using MaskRCNN and MATLAB-based processing.
+   - 📁 **Original repository:** [walsh-quail-labs/IMC-Lung - Cell Segmentation](https://github.com/walsh-quail-labs/IMC-Lung/tree/main)
+   - 🖼️ **Examples and images:** See `cell_segmentation/img_src/` and the original repository for segmentation visualization examples
+   - <img src='cell_segmentation/img_src/example.png' width=60%>  
+     *Example of nuclei segmentation output*
 
 2. **Cell Phenotyping** (`cell_phenotyping/`): Cell type assignment based on marker expression patterns using rule-based classification in MATLAB.
+   - 📁 **Original repository:** [walsh-quail-labs/IMC-Lung - Cell Phenotyping](https://github.com/walsh-quail-labs/IMC-Lung/tree/main)
+   - 🖼️ **Examples and images:** See `cell_phenotyping/img_src/` and the original repository for spatial cell-type visualization examples
+   - <img src='cell_phenotyping/img_src/lungImc.png' width=60%>  
+     *Example of cell phenotyping visualization - each cell colored by its assigned type*
 
-3. **Micro Environment Prediction** (`micro_environment_prediction/`): Machine learning models for predicting patient progression using spatial features. **This module replicates the machine learning accuracy results from the Nature paper** (Extended Data Fig. 10). The notebooks compute prediction accuracy scores but do not generate the same visualizations as Figures 1-3 in the Nature paper, which require additional analysis of cell type distributions and neighborhood patterns.
+3. **Micro Environment Prediction** (`micro_environment_prediction/`): Machine learning models for predicting patient progression using spatial features. **This module replicates the main results and figures from the Nature paper** (coming soon).
+   - 📁 **Original repository:** [walsh-quail-labs/IMC-Lung - Micro Environment Prediction](https://github.com/walsh-quail-labs/IMC-Lung/tree/main)
+   - 🖼️ **Examples and images:** See the original repository for UMAP visualizations, accuracy plots, and prediction results
 
 ## Getting Started
 
