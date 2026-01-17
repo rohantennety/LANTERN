@@ -49,7 +49,7 @@ LANTERN/
 
 2. **Cell Phenotyping** (`cell_phenotyping/`): Cell type assignment based on marker expression patterns using rule-based classification in MATLAB.
 
-3. **Micro Environment Prediction** (`micro_environment_prediction/`): Machine learning models for predicting patient progression using spatial features. **This module replicates the main results and figures from the Nature paper** (coming soon).
+3. **Micro Environment Prediction** (`micro_environment_prediction/`): Machine learning models for predicting patient progression using spatial features. **This module replicates the machine learning accuracy results from the Nature paper** (Extended Data Fig. 10). The notebooks compute prediction accuracy scores but do not generate the same visualizations as Figures 1-3 in the Nature paper, which require additional analysis of cell type distributions and neighborhood patterns.
 
 ## Getting Started
 

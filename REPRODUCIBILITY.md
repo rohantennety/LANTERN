@@ -252,10 +252,10 @@ To reproduce the Nature paper's results and visualizations, run the notebooks in
 - Generates UMAP visualizations showing sample clustering
 - Produces cross-validation accuracy scores
 
-**Key Visualizations Produced:**
-- **UMAP plots** showing how samples cluster based on spatial features (similar to Extended Data Fig. 8-9 in Nature paper)
-- **Model performance metrics** comparing different feature sets (similar to Extended Data Fig. 10)
-- **Feature importance analysis** identifying key spatial patterns
+**Key Results Produced:**
+- **Model accuracy scores** from cross-validation (replicates Extended Data Fig. 10 in Nature paper)
+- **Baseline comparison** showing improvement over baseline prediction
+- **Note:** This notebook computes accuracy scores but does not generate UMAP visualizations or other plots. The printed accuracy scores correspond to the machine learning results shown in Extended Data Fig. 10 of the Nature paper.
 
 **Expected Runtime:** 30-60 minutes (depending on hardware)
 
@@ -273,9 +273,9 @@ jupyter notebook prediction_416.ipynb
 - Compares frequency-based features to spatial features
 - Generates visualizations of cell type distributions
 
-**Key Visualizations Produced:**
-- **Cell type frequency distributions** across histological subtypes (similar to Fig. 1e-f in Nature paper)
-- **Comparison plots** showing frequency vs. spatial features
+**Key Results Produced:**
+- **Frequency-based prediction accuracy scores** for comparison with spatial features
+- **Note:** This notebook computes accuracy scores but does not generate distribution plots. Figure 1 visualizations require analysis of the cell type data files in `data/LANTERN_CellType/`.
 
 **Expected Runtime:** 15-30 minutes
 
@@ -287,10 +287,10 @@ jupyter notebook prediction_416.ipynb
 - Replicates the main machine learning results from the Nature paper
 - Generates stage-specific UMAP visualizations
 
-**Key Visualizations Produced:**
-- **Stage I progression prediction results** (main result from Nature paper Fig. 3)
-- **UMAP plots** for Stage I patients only
-- **Model accuracy comparisons** (baseline vs. clinical variables vs. spatial features)
+**Key Results Produced:**
+- **Stage I progression prediction accuracy scores** (main result from Nature paper Extended Data Fig. 10)
+- **Model accuracy comparisons** comparing spatial features to baseline
+- **Note:** This notebook computes accuracy scores for Stage I patients. The printed accuracy scores correspond to the Stage I progression prediction results shown in Extended Data Fig. 10 of the Nature paper. Figure 3 of the Nature paper shows similar progression prediction results but with different visualizations.
 
 **Expected Runtime:** 20-40 minutes
 
@@ -342,14 +342,14 @@ Shows 30 distinct cellular neighborhoods and their association with survival and
 
 Shows progression prediction accuracy for Stage I patients using different feature sets.
 
-**To reproduce:** Run `prediction_stage1.ipynb` - this directly replicates Figure 3 results.
+**To reproduce:** Run `prediction_stage1.ipynb` - this computes the progression prediction accuracy results that underlie Figure 3. The notebook prints accuracy scores that correspond to the machine learning results, but does not generate the same visualization format as shown in Figure 3.
 
 ### Extended Data Figures
 
 - **Extended Data Fig. 8-9**: UMAP visualizations of samples colored by various clinical variables
 - **Extended Data Fig. 10**: Machine learning accuracy comparisons
 
-**To reproduce:** These are generated in `prediction_416.ipynb` and `prediction_stage1.ipynb`.
+**To reproduce:** Extended Data Fig. 10 (accuracy comparisons) is replicated by the accuracy scores computed in `prediction_416.ipynb` and `prediction_stage1.ipynb`. However, these notebooks do not generate UMAP plots. To create Extended Data Figs. 8-9, you would need to add UMAP visualization code using the spatial features extracted in the notebooks.
 
 ## Troubleshooting
 
@@ -390,12 +390,15 @@ If you encounter issues:
 
 After running all notebooks, you should have:
 
-1. **UMAP visualizations** showing how samples cluster based on spatial features
-2. **Model accuracy scores** demonstrating improved prediction using spatial features vs. clinical variables alone
-3. **Feature importance analysis** identifying key spatial patterns associated with progression
-4. **Deep learning results** showing prediction from raw images
+1. **Model accuracy scores** printed in the notebook outputs demonstrating improved prediction using spatial features vs. baseline (corresponds to Extended Data Fig. 10 in Nature paper)
+2. **Deep learning results** from ResNet architecture showing prediction from raw images
 
-The exact numbers may vary slightly due to random seeds, but the overall patterns and improvements should match the Nature paper.
+**Important Note:** The notebooks compute and print accuracy scores but do NOT automatically generate visualization plots (UMAP, distribution plots, etc.). The accuracy scores match the results shown in the Nature paper's Extended Data Fig. 10. To reproduce Figures 1-3 and Extended Data Figs. 8-9, you would need to:
+- Analyze the cell type data files in `data/LANTERN_CellType/` for Figure 1 visualizations
+- Extract and visualize neighborhood patterns from the spatial features for Figure 2
+- Create custom plotting code using the computed accuracy scores for Figures 3 and Extended Data Figs. 8-10
+
+The exact accuracy numbers may vary slightly due to random seeds, but the overall improvement patterns should match the Nature paper's results.
 
 ## Citation
 
