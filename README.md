@@ -55,6 +55,8 @@ LANTERN/
 
 3. **Micro Environment Prediction** (`micro_environment_prediction/`): Machine learning models for predicting patient progression using spatial features. **This module replicates the main results and figures from the Nature paper** (coming soon).
 
+These three components work together in a sequential pipeline: **Cell Segmentation** identifies individual cells from raw IMC images, **Cell Phenotyping** classifies each cell into specific types (immune, tumor, etc.), and **Micro Environment Prediction** analyzes the spatial patterns of these cell types to predict patient clinical outcomes. Together, they transform raw imaging data into actionable clinical predictions by connecting cellular architecture with patient prognosis.
+
 ## Getting Started
 
 ### Prerequisites
@@ -267,46 +269,6 @@ The `micro_environment_prediction/` module specifically replicates the main resu
 - Progression prediction using spatial features from 416 lung adenocarcinoma samples
 - UMAP visualizations of the tumor-immune microenvironment
 - Deep learning models for predicting patient outcomes
-
-## How the Components Work Together
-
-The LANTERN project integrates three sequential analysis modules that work together to transform raw imaging mass cytometry (IMC) data into actionable clinical predictions:
-
-### Complete Analysis Pipeline
-
-```
-Raw IMC Images → Cell Segmentation → Cell Phenotyping → Micro Environment Prediction → Clinical Predictions
-```
-
-**1. Cell Segmentation** processes raw multiplexed IMC images to identify individual cells:
-   - Takes as input: Raw IMC images with ~35 antibody channels
-   - Uses: MaskRCNN deep learning model + MATLAB-based processing
-   - Produces: Segmentation masks and cell boundaries for >1.6 million cells
-   - Output: Cell coordinates and boundaries stored in `.mat` files
-
-**2. Cell Phenotyping** classifies each segmented cell into specific cell types:
-   - Takes as input: Segmented cell boundaries + marker expression data
-   - Uses: Rule-based classification with hierarchical marker analysis
-   - Produces: Cell type assignments (14 immune cell types + tumor + endothelial cells)
-   - Output: Cell type labels and spatial cell-type images (PDF visualizations)
-   - Enables: Quantitative analysis of immune cell composition across tissue
-
-**3. Micro Environment Prediction** analyzes spatial patterns to predict clinical outcomes:
-   - Takes as input: Cell type data + spatial features from ResNet architecture
-   - Uses: Machine learning (SVM, Gaussian Process Classifier) + deep learning (ResNet)
-   - Produces: Progression prediction models and spatial feature analysis
-   - Output: Patient outcome predictions using a single 1 mm² tumor core
-   - Enables: Clinical decision support for post-surgical management
-
-### Integration Benefits
-
-Together, these modules enable:
-- **Spatial understanding**: Maps where different cell types are located in the tumor microenvironment
-- **Quantitative analysis**: Counts and measures >1.6 million cells across 416 patients
-- **Predictive power**: Identifies patients at risk of progression after surgery using spatial features
-- **Clinical translation**: Provides actionable insights that could guide treatment decisions
-
-The power of LANTERN lies in connecting spatial cellular architecture (segmentation + phenotyping) with clinical outcomes (prediction), revealing how the physical arrangement of immune cells in tumors influences patient prognosis.
 
 ## Acknowledgments
 
